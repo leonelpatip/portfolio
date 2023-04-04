@@ -1,0 +1,423 @@
+<html>
+  <head>
+    <title>SIG ELECTRICITE MINEE</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="leaflet.mouseCoordinate-master\src\leaflet.mouseCoordinate.css">
+    <link rel="stylesheet" href="leaflet-measure.css">
+    
+
+    <script src="../dist/leaflet.browser.print.js"></script>
+    <link rel="stylesheet" href="../dist/leaflet.print.css"/>
+    <script src="Leaflet.print-master\src\Control.Print.js"></script>
+    <script src="Leaflet.print-master\src\copyright.js"></script>
+    <script src="Leaflet.print-master\src\print.Provider.js"></script>
+    <script src="Leaflet.print-master\Jakefile.js"></script>
+
+    <link rel="stylesheet" href="Leaflet.LinearMeasurement-master\src\Leaflet.LinearMeasurement.css">
+    <script src="Leaflet.LinearMeasurement-master\src\Leaflet.LinearMeasurement.js"></script>
+    <script src="Leaflet.LinearMeasurement-master\gulpfile.js"></script>
+
+    <script src="leaflet-easyPrint-gh-pages\src\index.js"></script>
+    <script src="leaflet-easyPrint-gh-pages\src\main.js"></script>
+    <script src="leaflet-easyPrint-gh-pages\rollup.config.js"></script>
+
+    <link rel="stylesheet" href="leaflet-search-master\src\leaflet-search.css">
+    <link rel="stylesheet" href="leaflet-search-master\src\leaflet-search.css">
+    <script src="leaflet-search-master\src\leaflet-search.js"></script>
+    <script src="leaflet-search-master\src\leaflet-search.mobile.css"></script>
+
+    <link rel="stylesheet" href="Leaflet.BigImage-master\src\Leaflet.BigImage.css">
+    <script src="Leaflet.BigImage-master\src\Leaflet.BigImage.js"></script>
+
+
+    <script src="leaflet-measure-master\src\calc.js"></script>
+    <script src="leaflet-measure-master\src\dom.js"></script>
+    <script src="leaflet-measure-master\src\leaflet-measure.js"></script>
+    <script src="leaflet-measure-master\src\symbology.js"></script>
+    <script src="leaflet-measure-master\src\units.js"></script>
+    <script src="D:\SIG PAR DEPARTEMENT\WEBMAPPING\Geoserver+Leaflet\HTML V9\leaflet-measure-master\src\utils.js"></script>
+
+    <link rel="stylesheet" href="leaflet-betterscale-master\L.Control.BetterScale.css"/>
+    <script src="leaflet-betterscale-master\L.Control.BetterScale.js"></script>
+
+
+    <script src="leaflet.mouseCoordinate-master\src\leaflet.mouseCoordinate.js"></script>
+    <script src="leaflet.mouseCoordinate-master\src\nac.js"></script>
+    <script src="leaflet.mouseCoordinate-master\src\qth.js"></script>
+    <script src="leaflet.mouseCoordinate-master\src\utm.js"></script>
+    <script src="leaflet.mouseCoordinate-master\src\utmref.js"></script>
+
+    <link rel="stylesheet" href="../css/leaflet.wmslegend.css"/>
+<script src="../js/leaflet.wmslegend.js"></script>
+
+
+<script src="https://unpkg.com/geojson-vt@3.2.0/geojson-vt.js"></script>
+<script src="leaflet-geojson-vt-master\src\leaflet-geojson-vt.js"></script>
+<script src="gadm41_CMR_2.js"></script>
+
+<script src="Transformateurs.js"></script>
+<script src="Postes sources existants.js"></script>
+<script src="Poste Interconnexion.js"></script>
+<script src="Reseau HTB existant Cameroun.js"></script>
+<script src="Reseau HTA.js"></script>
+<script src="Centrales hydroélectriques.js"></script>
+<script src="Centrales thermiques.js"></script>
+<script src="Centrales thermiques interconnectées.js"></script>
+
+
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.control.js"></script>
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.helpers.js"></script>
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.js"></script>
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.modes.js"></script>
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.sizes.js"></script>
+<script src="leaflet.browser.print-master\src\leaflet.browser.print.utils.js"></script>
+   
+<script src="leaflet.browser.print-master\webpack.config.js"></script>
+   <style>
+      #map{
+        width:100%;
+        height:100%}
+
+  #bandeau {
+width:100%;
+height: 50px;
+background-color:#009999;}
+
+ #titre {color: #FFFFFF; font-size: 23px;
+font-weight: bold;
+position: absolute;
+left: 100px;
+Top: 20px;
+font-family: Georgia, "Times New Roman", Times, serif;}
+  
+#cadre
+{width: 100%; height:600px;
+margin-right: auto;
+margin-left: auto;
+background-color:#252830;
+}
+      
+    </style>
+  <link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+  <body>
+    <div id="bandeau"> </div> <img src="https://labogenie.cm/wp-content/uploads/2020/07/logo_MINEEBN.jpg"style="width:41px;height:39px; position: absolute;
+left: 50px; top: 8px;"> <div id="titre"> SYSTEME D'INFORMATION GEOGRAPHIQUE DU SECTEUR DE L'ELECTRICITE AU CAMEROUN</div>
+   <BR>
+ <div id="cadre">
+ <div id="map"></div>
+
+ <button class="print map">print map</button>
+</div> 
+    <script>
+      var map = L.map("map").setView([6.68866690276821, 13.7121154785156], 6);
+    
+  
+      var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+
+
+       var baselayers = {
+OSM: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'),
+ESRI_Imagerie: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')};
+baselayers.OSM.addTo(map);
+ 
+      
+//Ajouter bouton de controle des couches       
+      
+   var baselayer1 = {
+OSM: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'),
+ESRI_Imagerie: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
+     };
+      baselayer1.OSM.addTo(map);
+     
+     var baselayer2 = {
+     localites_non_electrifiees:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Localités non électrifiées Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),   
+            localites_Electrifiees:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Localités connectées Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),     
+                
+        Postes_Transformation:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Postes source Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),
+         
+       Reseau_HTA:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Reseau HTA RIS",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),
+       
+
+        Transformateurs:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Transformateurs Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),   
+
+              Reseau_HTB_National:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Reseau HTB existant Cameroun",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),  
+              
+     Reseau_HTA_projéte:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Reseau HTA Projété Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),       
+       
+                 Transformateurs_projetes:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Transformateurs Projétés Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),           
+ Acces_Electricite:L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+            Layers: [
+    "sig_moungo:Accès électricité Moungo",
+  ],
+    format: 'image/png',
+    transparent: true,
+    version: '1.1.0',
+        attribution: "SIG-MINEE/Moungo"
+}),
+};
+baselayer2.Transformateurs.addTo(map);
+                   
+      L.control.layers(baselayer1,baselayer2,
+null).addTo(map);    
+      
+              //Ajouter une couche geoserver wms
+              
+              //var mywms = L.tileLayer.wms("http://localhost:8080/geoserver/sig_moungo/wms", {
+              //Layers: [
+              //"sig_moungo:Localités non électrifiées Moungo",
+              //"sig_moungo:Transformateurs Moungo",
+              //],
+       //format: 'image/png',
+       //transparent: true,
+       //version: '1.1.0',
+       //attribution: "SIG-MINEE/Moungo"
+       //});
+     //mywms.addTo(map);
+           
+              
+              //Ajouter l'option d'impression
+              //L.control.browserPrint().addTo(map);
+    var browserControl = L.control.browserPrint({position: 'topleft', title: 'Print ...'}).addTo(map);
+
+
+// Controler les coordonnées à l'affchage
+
+L.control.mouseCoordinate({utm:true,utmref:false}).addTo(map);
+
+
+//Mesures sur la carte
+
+//Mesure ligne
+map.addControl(new L.Control.LinearMeasurement({
+        unitSystem: 'imperial',
+        color: '#FF0080',
+        type: 'line'
+    }));
+
+   
+
+    L.control.betterscale().addTo(map);
+   // L.control.bigImage({position: 'buttomleft'}).addTo(mymap);
+
+  // var printer = L.easyPrint({
+      		//tileLayer: tiles,
+      		//sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      		//filename: 'myMap',
+      		//exportOnly: true,
+      	//	hideControlContainer: true
+		//}).addTo(map);
+
+
+
+
+
+    // Ajouter geojson aurement
+    var options = {
+  maxZoom: 20,
+  tolerance: 3,
+  debug: 0,
+  style: {
+    fillColor: "#11ffee00",
+   color: "#00",
+  },
+};
+
+var options1 = {
+  maxZoom: 20,
+  tolerance: 3,
+  debug: 0,
+  style: {
+    fillColor: "#SCC0",
+   color: "  #c1a0ed  ",    
+  },
+};
+//#F5F5DC  #5B3C11 #F5F5DC  #82f3e2
+
+
+var options2 = {
+ maxZoom: 20,
+ tolerance: 3,
+ debug: 0,
+ style: (properties) => {
+   if (properties.etat_fonct == 'Fonctionnel') {
+     return  {fillColor:"#0F0",color:"#08CC0A"};
+   } 
+   if (properties.etat_fonct == 'En arret') {
+    
+    return  {fillColor:"#0F0",color:"#EFD807"};
+   } 
+   else {
+      return  {fillColor:"#1EB300",color:"#FF0000"};
+    }
+  }
+};
+
+var options3 = {
+ maxZoom: 20,
+ tolerance: 3,
+ debug: 0,
+ style: (properties) => {
+   if (properties.tension_kv == '90') {
+     return  {fillColor:"#0F0",color:"#0000FF"};
+   } 
+   if (properties.tension_kv == '110') {
+    
+    return  {fillColor:"#0F0",color:"#F9429E"};
+   } 
+   else {
+      return  {fillColor:"#1EB300",color:"#FF0000"};
+    }
+  }
+};
+
+
+var radus2 = {radius: 7, 
+           fillOpacity: 1, 
+            color: 'black', 
+           fillColor: '#ED7F10', 
+           weight: 1,};
+
+
+
+
+
+var vtLayer = L.geoJson.vt(data, options).addTo(map);
+
+var vtLayer = L.geoJson.vt(hta, options1).addTo(map);
+
+var vtLayer = L.geoJson.vt(transfo, options2).addTo(map);
+
+
+//Ajouter centrales hyroélectriques
+pointlayer = new L.GeoJSON(hydro, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {radius: 8, 
+                                                fillOpacity: 1, 
+                                                color: 'black', 
+                                                fillColor:'#87CEEB', 
+                                                weight: 1,});
+        
+    }
+});
+pointlayer.bindPopup(function (layer) {
+  return ('<b> Centrales de Production <b/> <br>'+' Centrale Hydroélectrique de <b>'+layer.feature.properties.nom_de_la_ + '<img src="barrage reservoir.jpg" style="width:200px; height:100px;">'+'<b> Puissance: <b/>'+layer.feature.properties.puissanc_1+ '  MVA') ;
+   }).addTo(map); 
+   
+   //Ajouter centrales thermiques
+
+   pointlayer = new L.GeoJSON(thermiqueinter, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng,radus2);
+        
+    }
+});
+pointlayer.bindPopup(function (layer) {
+  return ('<b> Centrales de Production <b/> <br>'+'<b>'+layer.feature.properties.nom_centra + '<br> Source:  '+ layer.feature.properties.reseau_int +'<b> Puissance: '+layer.feature.properties.puissance_+ ' MVA'+ '<img src="CT.jpg" style="width:200px; height:100px;">') ;
+   }).addTo(map);  
+       
+  // nom_centra
+
+
+var vtLayer = L.geoJson.vt(htb, options3).addTo(map);
+
+//name
+
+
+L.geoJson(postesource). bindPopup(function (layer) {
+  return ('<b> Postes Sources <b/> <br>'+' Nom du poste:  <b>'+layer.feature.properties.nom_poste + '<br> Localité:  '+ layer.feature.properties.localite + '<img src="Poste-de-transformation.jpg" style="width:200px; height:150px;">' ) ;
+  }).addTo(map); 
+ 
+  L.geoJson(interco). bindPopup(function (layer) {
+  return ('<b> Postes Interconnexion <b/> <br>'+' Nom du poste:  <b>'+layer.feature.properties.nom_du_pos + '<br> Localité:  '+ layer.feature.properties.localite + '<img src="Poste-de-transformation.jpg" style="width:200px; height:150px;">') ;
+  }).addTo(map); 
+
+
+//leaflet search bar
+
+//const searchlayer = L.geoJson(entreprise, { 
+  //onEachfeature: function(feature, layer){
+ //   layer.bindPopup(feature.properties.region);
+ // }
+//}).addTo(map);
+//const searchControl = new L.Control.search ({
+    //                  layer:searchlayer,
+   //                   propertyName: 'region'
+//});
+//map.addControl(searchControl);
+
+
+
+    </script>
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
